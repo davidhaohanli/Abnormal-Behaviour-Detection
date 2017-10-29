@@ -1,8 +1,23 @@
 import cv2
+import numpy as np
+import matplotlib.pyplot as plt
 
 a=cv2.imread('../original_pics/001.tif')
 
-h
-
-if cv2.waitKey(20000) & 0xff == 27:
-    pass;
+img=cv2.imread('../original_pics/001.tif')
+gauss = cv2.GaussianBlur(img,(3,3),0)
+edges = cv2.Canny(gauss,100,200)
+lines = cv2.HoughLines(edges,1,np.pi/180,65)
+lines1 = lines[:,0,:]#提取为为二维
+for rho,theta in lines1[:]:
+    a = np.cos(theta)
+    b = np.sin(theta)
+    x0 = a*rho
+    y0 = b*rho
+    x1 = int(x0 + 1000*(-b))
+    y1 = int(y0 + 1000*(a))
+    x2 = int(x0 - 1000*(-b))
+    y2 = int(y0 - 1000*(a))
+    cv2.line(img,(x1,y1),(x2,y2),(255,0,0),1)
+plt.imshow(img,cmap = 'gray')
+plt.show()

@@ -17,6 +17,7 @@
     </entry>
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6.0b2 (/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6)" project-jdk-type="Python SDK" />
 =======
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -29,6 +30,8 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
+=======
+>>>>>>> f288d2199b038216065fdd8b29ff795790063a9c
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6.1 (~/anaconda/bin/python)" project-jdk-type="Python SDK" />
 >>>>>>> 8b986909348ecf7eb9c284e77d0416fe2dd4e829
   <component name="masterDetails">
