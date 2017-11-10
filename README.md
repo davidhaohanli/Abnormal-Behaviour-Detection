@@ -1,3 +1,4 @@
-# csc411proj
-Abnormal Behaviour Detection 
-This project ...
+csc411proj
+==========
+Abnormal Behaviour Detection  
+This project ...  
