@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 def hough_lines(img):
     return cv2.HoughLines(cv2.Canny(img,105,130),1,np.pi/180,90)
