@@ -40,7 +40,7 @@ def main():
         cv2.imshow('img',temp)
         if cv2.waitKey(1) & 0xFF == 27:
             if len(pt) >= 2:
-                lxml.
+
             break
 
     cv2.destroyAllWindows()
