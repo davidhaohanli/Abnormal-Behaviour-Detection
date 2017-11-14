@@ -22,6 +22,7 @@ Please keep the file in such structure
 | &emsp;&emsp;  |--weical.py      
 |  
 |--ref_data  
+|  &emsp;&emsp;&emsp; |--poi
 |  &emsp;&emsp;&emsp; |--hough_lines_only  
 |  &emsp;&emsp;&emsp; |--pics_with_hough_lines  
 |  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; |--h_lines_only_001.tif  
