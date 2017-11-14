@@ -3,7 +3,7 @@ import numpy as np
 #import matplotlib.pyplot as plt
 
 def hough_lines(img):
-    return cv2.HoughLines(cv2.Canny(img,105,130),1,np.pi/180,90)
+    return cv2.HoughLines(cv2.Canny(img,105,130),1,np.pi/180,89)
 
 def plot_hough_lines(lines,img):
     if lines is not None:
@@ -17,7 +17,7 @@ def plot_hough_lines(lines,img):
             y1 = int(y0 + 1000 * (a))
             x2 = int(x0 - 1000 * (-b))
             y2 = int(y0 - 1000 * (a))
-            cv2.line(img, (x1, y1), (x2, y2), (255, 0, 0), 1)
+            cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 1)
     else:
         print ('Hough line not find')
     return img;
@@ -27,6 +27,7 @@ def main():
         img = cv2.imread('../original_pics/'+str(i).zfill(3)+'.tif')
         lines = hough_lines(img)
         new_img = plot_hough_lines(lines,img)
+        #new_img = plot_hough_lines(lines,np.zeros((img.shape[0],img.shape[1],3)))
         cv2.imshow('img', new_img)
         # press ESC to exit
         if cv2.waitKey(200) & 0xff == 27:
