@@ -61,6 +61,7 @@ def main(imgShowSkip=False):
     else:
         if not imgShowSkip:
             load_and_show()
+    cv2.destroyAllWindows()
 
 hough_main=main
 
