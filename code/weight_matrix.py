@@ -1,7 +1,7 @@
 from plot_hough_lines import *
 import cv2
 import numpy as np
-
+from lxml.etree import
 
 font=cv2.FONT_HERSHEY_COMPLEX
 
@@ -40,7 +40,7 @@ def main():
         cv2.imshow('img',temp)
         if cv2.waitKey(1) & 0xFF == 27:
             if len(pt) >= 2:
-                np.savetxt('../ref_data/poi',np.array([y1,pt[0],pt[-1]]),delimiter=',')
+                lxml.
             break
 
     cv2.destroyAllWindows()
