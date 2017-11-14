@@ -30,6 +30,7 @@ def main():
         #new_img = plot_hough_lines(lines,np.zeros((img.shape[0],img.shape[1],3)))
         cv2.imshow('img', new_img)
         # press ESC to exit
+        cv2.imwrite('../ref_data/pics_with_hough_lines/'+str(i).zfill(3)+'.tif',new_img)
         if cv2.waitKey(200) & 0xff == 27:
             break
 
