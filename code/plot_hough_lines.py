@@ -27,7 +27,7 @@ def check_hough_lines():
         return False
     else:
         print ('pics with hough lines already exits')
-        return False if input('If recalculation needed, please enter \'y\',that would induce overwritten,else enter \'n\' for just loading:\n')\
+        return False if input('If recalculation needed, please enter \'y\',that would induce overwritten. Else enter \'n\':\n')\
                        == 'y' else True
 
 def load_and_show():
@@ -39,7 +39,7 @@ def load_and_show():
         if cv2.waitKey(200) & 0xff == 27:
             break;
 
-def main():
+def main(imgShowSkip=False):
     if not check_hough_lines():
         print ('calculating hough lines...')
         for i in range(1,201):
@@ -53,12 +53,16 @@ def main():
             if not os.path.exists('../ref_data/hough_lines_only'):
                 os.mkdir('../ref_data/hough_lines_only')
             cv2.imwrite('../ref_data/hough_lines_only/lines_only_' + str(i).zfill(3) + '.tif', hough_lines_only)
-            cv2.imshow('img', new_img)
-            # press ESC to exit
-            if cv2.waitKey(200) & 0xff == 27:
-                break;
+            if not imgShowSkip:
+                cv2.imshow('img', new_img)
+                # press ESC to exit
+                if cv2.waitKey(200) & 0xff == 27:
+                    break;
     else:
-        load_and_show()
+        if not imgShowSkip:
+            load_and_show()
+
+hough_main=main
 
 if __name__ == '__main__':
     main();
