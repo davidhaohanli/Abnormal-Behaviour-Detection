@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-#import matplotlib.pyplot as plt
 
 def hough_lines(img):
     return cv2.HoughLines(cv2.Canny(img,105,130),1,np.pi/180,89)
@@ -30,7 +29,7 @@ def main():
         #new_img = plot_hough_lines(lines,np.zeros((img.shape[0],img.shape[1],3)))
         cv2.imshow('img', new_img)
         # press ESC to exit
-        cv2.imwrite('../ref_data/pics_with_hough_lines/'+str(i).zfill(3)+'.tif',new_img)
+        cv2.imwrite('../ref_data/pics_with_hough_lines/h_lines_only_'+str(i).zfill(3)+'.tif',new_img)
         if cv2.waitKey(200) & 0xff == 27:
             break
 
