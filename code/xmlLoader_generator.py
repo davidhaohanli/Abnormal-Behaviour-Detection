@@ -6,6 +6,11 @@ class Poi_handle():
         parser = et.XMLParser(remove_blank_text=True)
         self.tree = et.parse(path,parser)
 
+    def searchPic(self,n):
+        for pic in self.tree.getroot():
+            if pic.get('n') == str(n).zfill(3):
+                return pic
+
     def add(self,n,y,*xs):
         picPt=None
         for subEl1 in self.tree.getroot():
