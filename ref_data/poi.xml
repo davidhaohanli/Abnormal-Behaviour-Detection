@@ -1,3 +1,24 @@
-1.180000000000000000e+02
-3.300000000000000000e+01
-1.670000000000000000e+02
+<root>
+  <pic n="012">
+    <y val="117">
+      <point>(34, 117)</point>
+      <point>(168, 117)</point>
+    </y>
+  </pic>
+  <pic n="003">
+    <y val="117">
+      <point>(34, 117)</point>
+      <point>(168, 117)</point>
+    </y>
+    <y val="111">
+      <point>(45, 111)</point>
+      <point>(174, 111)</point>
+    </y>
+  </pic>
+  <pic n="056">
+    <y val="112">
+      <point>(43, 112)</point>
+      <point>(173, 112)</point>
+    </y>
+  </pic>
+</root>
