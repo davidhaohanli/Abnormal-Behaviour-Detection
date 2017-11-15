@@ -5,7 +5,7 @@ import re
 
 from xmlLoader_generator import *
 
-def proportion(pic):
+def diff(pic):
     res=[]
     if pic is not None:
         for y in pic:
@@ -13,17 +13,21 @@ def proportion(pic):
                        int(re.findall('\(.*,',y[-1].text)[0][1:-1]))))
     return res;
 
-def weight(tps,y):
+
+def y_weight(y,tps=diff(Poi_handle().searchPic(3))):
     y1=tps[0][0]
     y2=tps[-1][0]
     ab=tps[0][1];
     cd=tps[-1][1];
-    return (y-y1)/(y2-y1)+(y2-y)/(y2-y1)*(ab/cd)
+    return (y-y2)/(y1-y2)+(y1-y)/(y1-y2)*(ab/cd)
 
-def main ():
-    pic = Poi_handle().searchPic(input('no. of hough lines pic intend to use as weight generator: \n'))
+def test ():
+    n=input('no. of hough lines pic intend to use as weight generator, \'d\' for default: \n')
     while 1:
         y=input('y val: \n')
-        print(weight(proportion(pic),int(y)))
+        if n == 'd':
+            print (y_weight(int(y)))
+        else:
+            print(y_weight(int(y),diff(Poi_handle().searchPic(n))))
 if __name__ == '__main__':
-    main()
+    test()

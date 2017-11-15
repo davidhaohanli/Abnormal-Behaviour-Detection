@@ -8,6 +8,18 @@
       <point>(136, 58)</point>
       <point>(231, 58)</point>
     </y>
+    <y val="105">
+      <point>(55, 105)</point>
+      <point>(181, 105)</point>
+    </y>
+    <y val="57">
+      <point>(138, 57)</point>
+      <point>(232, 57)</point>
+    </y>
+    <y val="125">
+      <point>(20, 125)</point>
+      <point>(159, 125)</point>
+    </y>
   </pic>
   <pic n="030">
     <y val="115">
