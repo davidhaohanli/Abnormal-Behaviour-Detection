@@ -19,4 +19,16 @@
       <point>(221, 67)</point>
     </y>
   </pic>
+  <pic n="3">
+    <y val="100">
+      <point>(23, 100)</point>
+      <point>(623242345234, 100)</point>
+    </y>
+  </pic>
+  <pic n="4">
+    <y val="213">
+      <point>(124, 213)</point>
+      <point>(1234, 213)</point>
+    </y>
+  </pic>
 </root>

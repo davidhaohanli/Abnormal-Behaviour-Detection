@@ -1,4 +1,5 @@
 from xmlLoader_generator import *
+from lxml.etree import tostring
 
 thisPoi = Poi_handle()
 print(tostring(thisPoi.tree, pretty_print=True).decode('utf-8'))
