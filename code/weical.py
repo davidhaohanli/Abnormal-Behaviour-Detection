@@ -3,15 +3,12 @@ import cv2
 
 
 def main():
-    for i in range(1,201):
-        im = cv2.imread('../original_pics/'+str(i).zfill(3)+'.tif')
-
+    for i in range(1,200):
+        im = cv2.imread('../img_optical_flow/'+str(i)+'.bmp')
         cv2.imshow('img',im)
         if cv2.waitKey(200) & 0xff == 27:
             break
         #cv2.destroyAllWindows()
-
-
 
 
 if __name__=='__main__':

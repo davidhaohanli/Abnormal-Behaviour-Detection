@@ -1,0 +1,50 @@
+<root>
+  <pic n="003">
+    <y val="124">
+      <point>(22, 124)</point>
+      <point>(160, 124)</point>
+    </y>
+    <y val="58">
+      <point>(136, 58)</point>
+      <point>(231, 58)</point>
+    </y>
+    <y val="105">
+      <point>(55, 105)</point>
+      <point>(181, 105)</point>
+    </y>
+    <y val="57">
+      <point>(138, 57)</point>
+      <point>(232, 57)</point>
+    </y>
+    <y val="125">
+      <point>(20, 125)</point>
+      <point>(159, 125)</point>
+    </y>
+    <y val="133">
+      <point>(7, 133)</point>
+      <point>(151, 133)</point>
+    </y>
+  </pic>
+  <pic n="030">
+    <y val="115">
+      <point>(38, 115)</point>
+      <point>(170, 115)</point>
+    </y>
+    <y val="67">
+      <point>(121, 67)</point>
+      <point>(221, 67)</point>
+    </y>
+  </pic>
+  <pic n="3">
+    <y val="100">
+      <point>(23, 100)</point>
+      <point>(623242345234, 100)</point>
+    </y>
+  </pic>
+  <pic n="4">
+    <y val="213">
+      <point>(124, 213)</point>
+      <point>(1234, 213)</point>
+    </y>
+  </pic>
+</root>
