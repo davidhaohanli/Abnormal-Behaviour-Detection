@@ -26,16 +26,14 @@ class Weight_matrix:
 
     def compute_weight_matrix(self):
         self.weight_matrix=np.vectorize(self.y_weight)(np.arange(158))
+        np.savetxt('../ref_data/weight_matrix',self.weight_matrix,delimiter=',')
+        return self.weight_matrix
 
     def get_weight_matrix(self):
         return self.weight_matrix
 
-def test ():
-    n=input('no. of hough lines pic intend to use as weight generator, \'d\' for default: \n')
-    if n == 'd':
-        print (Weight_matrix().get_weight_matrix())
-    else:
-        print(Weight_matrix(n).get_weight_matrix())
+    def y_query(self,n):
+        return self.weight_matrix[n]
 
 if __name__ == '__main__':
-    test()
+    Weight_matrix()
