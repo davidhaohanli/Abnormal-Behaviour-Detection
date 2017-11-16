@@ -37,4 +37,4 @@ if __name__ == '__main__':
     images=[]
     for i in range(1,201):
         images.append('../original_pics/'+str(i).zfill(3)+'.tif')
-    make_video(images,'../video/video.mp4')
+    make_video(images,'../video/video.mp4',10)
