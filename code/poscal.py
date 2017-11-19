@@ -1,7 +1,7 @@
 # coding:utf8
 import cv2
 import numpy as np
-from skimage import measure,color
+from skimage import measure
 import matplotlib.pyplot as plt
 def poscal(img):
     img = img[:,:,0]
