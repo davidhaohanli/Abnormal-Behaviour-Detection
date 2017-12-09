@@ -10,6 +10,9 @@ class Weight_matrix:
         self.y2 = tps[-1][0]
         self.ab = tps[0][1];
         self.cd = tps[-1][1];
+        connect=np.loadtxt('../ref_data/connectedFieldImg.txt',delimiter=',')
+        self.h1 = connect[8][0]-connect[8][1];
+        self.h2 = connect[15][0]-connect[15][1];
         #print (self.y1)
         self.compute_weight_matrix()
 
@@ -22,7 +25,12 @@ class Weight_matrix:
         return res;
 
     def y_weight(self,y):
-        return (y - self.y2) / (self.y1 - self.y2) + (self.y1 - y) / (self.y1 - self.y2) * (self.ab / self.cd)
+
+        return ((y-self.y2)/(self.y1-self.y2)*(self.cd/self.ab)+(self.y1-y)/(self.y1-self.y2))* \
+               ((y - self.y2) / (self.y1 - self.y2) * (self.h2 / self.h1)+ (self.y1 - y) / (self.y1 - self.y2) )
+
+        #old
+        #return (y - self.y2) / (self.y1 - self.y2) + (self.y1 - y) / (self.y1 - self.y2) * (self.ab / self.cd)
 
     def compute_weight_matrix(self):
         self.weight_matrix=np.vectorize(self.y_weight)(np.arange(158))

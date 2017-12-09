@@ -21,7 +21,7 @@ def crossPoints(img,y,):
     # print(len(pt))
     return temp,pt
 
-def main():
+def main_1():
     hough_main(True)
     n=input('No. of pic:\n').zfill(3)
     img = cv2.imread('../ref_data/hough_lines_only/lines_only_' + n + '.tif')
@@ -45,5 +45,22 @@ def main():
 
     cv2.destroyAllWindows()
 
+def main_2():
+    hough_main(True)
+    n = input('No. of pic:\n').zfill(3)
+    img = cv2.imread('../ref_data/hough_lines_only/lines_only_' + n + '.tif')
+    connect = np.loadtxt('../ref_data/connectedFieldImg.txt', delimiter=',')[[8,15]]
+    for i,item in enumerate(connect):
+        x1 = 0
+        y1 = int((item[0]+item[1])//2)
+        x2 = img.shape[1]
+        y2 = y1
+        temp, pt = crossPoints(img, y1)
+        cv2.line(temp, (x1, y1), (x2, y2), (0, 255, 255), 1)
+        Poi_handle().add(n, y1, pt[0], pt[-1])
+        cv2.imshow('img', temp)
+        if cv2.waitKey(0) & 0xFF == 27:
+            cv2.destroyAllWindows()
+
 if __name__ == '__main__':
-    main()
+    {'1':main_1,'2':main_2}[input('which main?: \n')]();
