@@ -1,6 +1,6 @@
 *.pyc
-original_pics/
-video/
-ref_data/
-fg_pics/
-optical_flow_pics/
+./original_pics/
+./video/
+./ref_data/
+./fg_pics/
+./optical_flow_pics/
