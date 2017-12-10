@@ -35,7 +35,6 @@ class Weight_matrix:
     def compute_weight_matrix(self):
         self.weight_matrix=np.vectorize(self.y_weight)(np.arange(158))
         np.savetxt('../ref_data/weight_matrix',self.weight_matrix,delimiter=',')
-        return self.weight_matrix
 
     def get_weight_matrix(self):
         return self.weight_matrix

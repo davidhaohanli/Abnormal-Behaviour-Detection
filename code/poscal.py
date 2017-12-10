@@ -18,7 +18,7 @@ def poscal(img):
     num = im_labels.max()     # 标记连通域的个数（除去背景连通域）
 
     if num==0:
-        im_s = np.zeros(5)   # 考虑一张全黑图的情况 如果不考虑 可以略过
+        im_s = np.zeros((1,5))   # 考虑一张全黑图的情况 如果不考虑 可以略过
     else:
         im_s = np.zeros((num,5))
         for i in range(num):
@@ -31,7 +31,6 @@ def poscal(img):
             im_s[i,3]= min(index[1]) #person's left side x_val
             im_s[i,4]= len(index[0]) #area of the person
     return im_s
-
 
 def main():
     img = cv2.imread('../fg_pics/97.bmp')
