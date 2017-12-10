@@ -44,10 +44,7 @@ def detect_video(video):
 
         if cv2.waitKey(110) & 0xff == 27:
             break
-
-
     camera.release()
-
 
 if __name__ == '__main__':
     video = '../video/video.mp4'
