@@ -47,7 +47,7 @@ def detect_video(video):
     camera.release()
 
 if __name__ == '__main__':
-    video = '../video/video.mp4'
+    video = '../ref_data/video/video.mp4'
     detect_video(video)
 
 '''version 2
