@@ -16,9 +16,9 @@ n = u_seq_abnormal.shape[1] # 图像的第二维度
 weight = Weight_matrix().get_weight_matrix()
 
 ## [weigh,sarea,sarea1,sth,stl]=weical();%先验知识的获得
-list_names1 = ['../fg_pics/' + str(i+1) + '.bmp' for i in range(200)]
-list_names2 = ['../original_pics/' + str(i+1).zfill(3) + '.tif' for i in range(200)]
-list_names4 = ['../ab_fg_pics/' + str(i+1) + '.bmp' for i in range(200)]
+list_names1 = ['../ref_data/fg_pics/' + str(i+1) + '.bmp' for i in range(200)]
+list_names2 = ['../ref_data/original_pics/' + str(i+1).zfill(3) + '.tif' for i in range(200)]
+list_names4 = ['../ref_data/ab_fg_pics/' + str(i+1) + '.bmp' for i in range(200)]
 
 img3 = np.zeros((m,n,2))
 label = np.ones((1,0))
@@ -54,6 +54,7 @@ for i in range(100,101):
         data,im_s = poscalflow(img1,img3)   # something wrong with data at here
         data = np.concatenate((data[:,0:k],data[:,(k+1):(-1)]),axis = 1)
     datal = np.concatenate((datal,data),axis=1)
+print(datal.shape)
 
 
 
