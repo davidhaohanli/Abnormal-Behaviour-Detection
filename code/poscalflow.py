@@ -54,7 +54,7 @@ def main():
     img3 = np.zeros((m, n, 2))
     img3[:, :, 0] = u_seq_abnormal[:, :, 0]
     img3[:, :, 1] = v_seq_abnormal[:, :, 0]
-    img1 = cv2.imread('../fg_pics/1.bmp')
+    img1 = cv2.imread('../ref_data/fg_pics/1.bmp')
     data, im_s = poscalflow(img1,img3)
     print(data)
     print(im_s)
