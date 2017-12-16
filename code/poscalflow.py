@@ -16,7 +16,6 @@ def poscalflow(img1,img3):
 
     num = im_labels.max()     # 标记连通域的个数（除去背景连通域）
     print(im_labels)
-    print(im_labels.min())
     print(im_labels.max())
     if num==0:
         data = np.zeros(2)
@@ -31,13 +30,10 @@ def poscalflow(img1,img3):
             index = np.where(temp == i)
             for j in range(l):
                 iml = img3[:,:,j]
-                aa = iml[temp==i]
-                aaa = index[0]          # 第一坐标的索引值
-                aa_f = np.sort(np.unique(aaa))
-                aa[aaa <= aa_f[1]] = -1
-                aa[aaa>= aa_f[len(aa_f)-3]] = -1
-                aa= aa[np.where(aa != (-1))]
-                data1[j]= np.mean(aa)
+                aa = iml[temp == i]
+                print(aa)
+                a = np.mean(aa)
+                data1[j]= a
             data[:,i-1] = data1
             im_s[i-1, 0] = max(index[0])
             im_s[i-1, 1] = min(index[0])
@@ -56,7 +52,7 @@ def main():
     img3 = np.zeros((m, n, 2))
     img3[:, :, 0] = u_seq_abnormal[:, :, 0]
     img3[:, :, 1] = v_seq_abnormal[:, :, 0]
-    img1 = cv2.imread('../ref_data/fg_pics/1.bmp')
+    img1 = cv2.imread('../ref_data/fg_pics/100.bmp')
     data, im_s = poscalflow(img1,img3)
     print(data)
     print(im_s)
