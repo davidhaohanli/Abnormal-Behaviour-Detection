@@ -3,19 +3,23 @@ import numpy as np
 class Spliter(object):
 
     #TODO SET NORM
-    normal = 150
+    normal = 120
+    shapeParam = 3
+
 
     #TODO Default tuning
-    def __init__(self,discardFloor=0.08,splitCeil=2.3,splitRemainderFloor=0.8,totalFullFillGate=0.5,shapeParam=3):
+    def __init__(self,discardFloor=0.08,splitCeil=1.8,splitRemainderFloor=0.8,totalFullFillGate=0.6,shapeParamCeiling=1.5,\
+                 shapeParamFloor=0.7):
         self.floor=discardFloor*Spliter.normal;
         self.ceil=splitCeil*Spliter.normal;
         self.remainderFloor=splitRemainderFloor*Spliter.normal
         self.totalGate=totalFullFillGate
-        self.shape=shapeParam
+        self.shapeCeil=shapeParamCeiling*Spliter.shapeParam
+        self.shapeFloor=shapeParamFloor*Spliter.shapeParam
 
     def split(self,pos,fg_img,weight):
         posArea = self.areaCompute(pos,weight)
-        realPos = np.zeros((1,5))
+        realPos = np.zeros((0,5))
         for ind,area in enumerate(posArea):
             if area < self.floor:
                 print('discard')
@@ -25,7 +29,6 @@ class Spliter(object):
                 if area % Spliter.normal > self.remainderFloor:
                     n=n+1
                 print('split',n)
-                ######################
                 recArea = (pos[ind][0]-pos[ind][1])*(pos[ind][2]-pos[ind][3])
                 shape = (pos[ind][0]-pos[ind][1])/(pos[ind][2]-pos[ind][3])
                 step_y = (pos[ind][0] - pos[ind][1]) / n;
@@ -46,7 +49,7 @@ class Spliter(object):
                         print('diag chosen')
                         new = np.array(res[i][:-1])
                         realPos = np.concatenate((realPos, new.reshape(1, 5)), axis=0)
-                elif shape > self.shape:
+                elif shape > self.shapeCeil:
                     #y splitting
                     pos3=int(pos[ind][3])
                     pos2=int(pos[ind][2])
@@ -56,7 +59,7 @@ class Spliter(object):
                         print('y fullfilling')
                         new = np.array([pos0, pos1, pos2, pos3, fg_img[pos0:pos1, pos3:pos2].sum()])
                         realPos = np.concatenate((realPos, new.reshape(1,5)), axis=0)
-                else:
+                elif shape<self.shapeFloor:
                     #x splitting
                     pos1 = int(pos[ind][1])
                     pos0 = int(pos[ind][0])
@@ -66,9 +69,11 @@ class Spliter(object):
                         print('x fullfilling')
                         new = np.array([pos0, pos1, pos2, pos3, fg_img[pos0:pos1, pos3:pos2].sum()])
                         realPos = np.concatenate((realPos, new.reshape(1,5)), axis=0)
+                else:
+                    print ('reasonable shape, but fulfillment is high')
             else:
                 realPos=np.concatenate((realPos,pos[ind].reshape(1,5)),axis=0)
-        return realPos[1:]
+        return realPos
 
     def areaCompute(self,pos,weight):
         area = np.zeros((pos.shape[0],1))
