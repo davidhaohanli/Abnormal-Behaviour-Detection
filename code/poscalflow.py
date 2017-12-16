@@ -15,33 +15,35 @@ def poscalflow(img1,img3):
     im_labels = measure.label(im,connectivity=2)       #从0开始连通域标记-8
 
     num = im_labels.max()     # 标记连通域的个数（除去背景连通域）
-
+    print(im_labels)
+    print(im_labels.min())
+    print(im_labels.max())
     if num==0:
         data = np.zeros(2)
         im_s = np.zeros((1,5))   # 考虑一张全黑图的情况 如果不考虑 可以略过
     else:
         im_s = np.zeros((num,5))
         data = np.zeros((2,num))
-        for i in range(num):
+        for i in range(1,num+1):
             temp = np.copy(im_labels)
-            temp[temp != (i+1)]=0
+            temp[temp != (i)]=0
             data1 = np.zeros(l)
-            index = np.where(temp == (i + 1))
+            index = np.where(temp == i)
             for j in range(l):
                 iml = img3[:,:,j]
-                aa = iml[temp==(i+1)]
+                aa = iml[temp==i]
                 aaa = index[0]          # 第一坐标的索引值
                 aa_f = np.sort(np.unique(aaa))
                 aa[aaa <= aa_f[1]] = -1
                 aa[aaa>= aa_f[len(aa_f)-3]] = -1
                 aa= aa[np.where(aa != (-1))]
                 data1[j]= np.mean(aa)
-            data[:,i] = data1
-            im_s[i, 0] = max(index[0])
-            im_s[i, 1] = min(index[0])
-            im_s[i, 2] = max(index[1])
-            im_s[i, 3] = min(index[1])
-            im_s[i, 4] = len(index[0])
+            data[:,i-1] = data1
+            im_s[i-1, 0] = max(index[0])
+            im_s[i-1, 1] = min(index[0])
+            im_s[i-1, 2] = max(index[1])
+            im_s[i-1, 3] = min(index[1])
+            im_s[i-1, 4] = len(index[0])
     return data,im_s
 
 def main():

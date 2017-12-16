@@ -23,7 +23,7 @@ list_names4 = ['../ref_data/ab_fg_pics/' + str(i+1) + '.bmp' for i in range(200)
 img3 = np.zeros((m,n,2))
 label = np.ones((1,0))
 datal = np.zeros((2,0))
-for i in range(100,101):
+for i in range(105,106):
     img1 = cv2.imread(list_names1[i])
     img2 = cv2.imread(list_names2[i])
     img4 = cv2.imread(list_names4[i])
@@ -37,6 +37,16 @@ for i in range(100,101):
     f2 = imp2.shape[0]
     #print(imp1.shape)
     #print(imp2.shape)
+    ########################################################
+    data,pos = poscalflow(img1,img3)
+    _,abnormal_pos = poscalflow(img4,img3)
+    data=data.T
+    labels = np.zeros(data.shape[0]).reshape(-1,1)
+    for checker in abnormal_pos:
+        labels = np.all(pos==checker,axis=1).reshape(-1,1)
+
+
+    ########################################################
 
     if imp2.max() == 0:
         label = np.concatenate((label,np.ones((1,f1))),axis = 1)
@@ -52,6 +62,7 @@ for i in range(100,101):
         k = np.argmin(dis)
         label = np.concatenate((label, np.ones((1, f1-1))), axis=1)
         data,im_s = poscalflow(img1,img3)   # something wrong with data at here
+        print(data)
         data = np.concatenate((data[:,0:k],data[:,(k+1):(-1)]),axis = 1)
     datal = np.concatenate((datal,data),axis=1)
 print(datal.shape)
