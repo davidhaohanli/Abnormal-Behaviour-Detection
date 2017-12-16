@@ -1,0 +1,11 @@
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression as lr
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import BernoulliNB
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import GaussianNB
+
+class Trainers(object):
+    def __init__(self,train_data,train_labels):
+        self.train_data=train_data
+        self.train_labels=train_labels
