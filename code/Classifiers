@@ -26,7 +26,7 @@ class Classifiers(object):
         grid = GridSearchCV(model, param_grid, cv=10, scoring='accuracy', n_jobs=-1)
         grid.fit(self.train_data, self.train_labels)
         print(
-            '\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
+            '\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n'\
             .format(name, grid.best_params_, grid.best_score_))
 
         model = grid.best_estimator_

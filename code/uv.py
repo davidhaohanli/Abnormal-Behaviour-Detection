@@ -6,6 +6,8 @@ import scipy.io
 import numpy as np
 from weight_matrix import *
 
+font=cv2.FONT_HERSHEY_COMPLEX
+
 data = scipy.io.loadmat('../ref_data/u_seq_abnormal.mat')
 u_seq_abnormal = data['u_seq_abnormal']
 data = scipy.io.loadmat('../ref_data/v_seq_abnormal.mat')
@@ -39,11 +41,29 @@ for i in range(105,106):
     #print(imp2.shape)
     ########################################################
     data,pos = poscalflow(img1,img3)
+
+
+
+    ############################################
+
+    #plot
+    img = cv2.imread('../ref_data/original_pics/105.tif')
+    for i,item in enumerate(pos):
+        cv2.rectangle(img,(int(item[3]),int(item[1])),(int(item[2]),int(item[0])),(0, 0, 255))
+        cv2.putText(img, str(i), (int(item[3]),int(item[1])-5), font, 0.4, (255, 255, 0), 1)
+    cv2.imshow('img',img)
+    if cv2.waitKey(0) & 0xff == 27:
+        cv2.destroyAllWindows();
+
+    ############################################
+
+
+
     _,abnormal_pos = poscalflow(img4,img3)
     data=data.T
     labels = np.zeros(data.shape[0]).reshape(-1,1)
     for checker in abnormal_pos:
-        labels = np.all(pos==checker,axis=1).reshape(-1,1)
+        labels += np.all(pos == checker,axis=1).reshape(-1,1)
 
 
     ########################################################
