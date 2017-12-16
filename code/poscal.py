@@ -35,7 +35,7 @@ def poscal(img):
 def main():
     img = cv2.imread('../ref_data/fg_pics/97.bmp')
     im_s = poscal(img)
-    np.savetxt('../ref_data/connectedFieldImg.txt',im_s,delimiter=',')
+    #np.savetxt('../ref_data/connectedFieldImg.txt',im_s,delimiter=',')
     print(im_s)
     #plot
     img = cv2.imread('../ref_data/original_pics/097.tif')
