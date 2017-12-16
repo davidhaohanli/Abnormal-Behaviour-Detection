@@ -15,8 +15,6 @@ def poscalflow(img1,img3):
     im_labels = measure.label(im,connectivity=2)       #从0开始连通域标记-8
 
     num = im_labels.max()     # 标记连通域的个数（除去背景连通域）
-    print(im_labels)
-    print(im_labels.max())
     if num==0:
         data = np.zeros(2)
         im_s = np.zeros((1,5))   # 考虑一张全黑图的情况 如果不考虑 可以略过
@@ -31,7 +29,6 @@ def poscalflow(img1,img3):
             for j in range(l):
                 iml = img3[:,:,j]
                 aa = iml[temp == i]
-                print(aa)
                 a = np.mean(aa)
                 data1[j]= a
             data[:,i-1] = data1
