@@ -22,3 +22,10 @@ def getFeaturesUV(realPos,u,v):
             data[i][0]=u[int(realPos[i][1]):int(realPos[i][0]),int(realPos[i][3]):int(realPos[i][2])].mean()
             data[i][1]=v[int(realPos[i][1]):int(realPos[i][0]),int(realPos[i][3]):int(realPos[i][2])].mean()
     return data
+
+def main():
+    weight = Weight_matrix().get_weight_matrix()
+    cv2.imshow('img105',u_seq_abnormal[:,:,105]*weight)
+
+if __name__ == "__main__":
+    main()

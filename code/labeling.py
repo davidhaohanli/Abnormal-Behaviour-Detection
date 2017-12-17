@@ -1,6 +1,6 @@
 import numpy as np
 
-gate=0.3
+gate=0.5
 def labeling(pos,abnormal_fg_img):
     if abnormal_fg_img is None:
         abnormal_fg_img = np.zeros((158, 238, 3), dtype=np.uint8)

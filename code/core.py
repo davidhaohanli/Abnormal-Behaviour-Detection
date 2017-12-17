@@ -3,6 +3,21 @@ from Feature_extraction import *
 from Classifiers import *
 import scipy.io
 import cv2
+import matplotlib.pyplot as plt
+
+
+def uvPlot(u,v,labels):
+    plt.figure()
+    for ind,label in enumerate(labels):
+        if label:
+            plt.scatter(u[ind],v[ind],c='red')
+        else:
+            plt.scatter(u[ind], v[ind], c='blue')
+    plt.ylabel('v')
+    plt.xlabel('u')
+    plt.title('u v plot')
+    plt.legend()
+    plt.show()
 
 def load_data():
     u_seq_abnormal = scipy.io.loadmat('../ref_data/u_seq_abnormal.mat')['u_seq_abnormal']
@@ -31,18 +46,17 @@ def main ():
     weight = Weight_matrix().get_weight_matrix()
 
     thisFeatureExtractor = Feature_extractor(original_imgs,fg_imgs,abnormal_fg_imgs,u_data,v_data,weight)
-    train_data,train_labels = thisFeatureExtractor.get_features_and_labels(80,120)
+    #TODO PARAM SELECTION
+    train_data,train_labels = thisFeatureExtractor.get_features_and_labels(100,110)
+    uvPlot(train_data[:,0],train_data[:,1],train_labels)
+
 
     classifiers = Classifiers(train_data,train_labels)
 
+    #TODO PARAM SELECTION
     test_data, test_labels = thisFeatureExtractor.get_features_and_labels(120,150)
 
     for name,model in classifiers.models.items():
-        #TODO
-        if name != 'KNN':
-            continue
-        #TODO
-        labelsum=0;
         for ind,original_img in enumerate(original_imgs[80:-1]):
             #TODO -80
             ind=ind+80
@@ -51,13 +65,13 @@ def main ():
             features,_=thisFeatureExtractor.get_features_and_labels(ind,ind+1,False)
             #print(features.shape)
             #print(features)
+            #TODO delete
             labels=classifiers.models[name].predict(features)
-            #TODO
-            labelsum+=labels.max()
+            uvPlot(features[:,0],features[:,1],labels)
             print('ind: ',ind,'abnormal?: ',labels.max())
             #TODO
-            plot(pos,labels,thisImg)
-        print (labelsum)
+            #plot(pos,labels,thisImg)
+        #print (labelsum)
         classifiers.prediction_metrics(test_data,test_labels,name)
 
 
