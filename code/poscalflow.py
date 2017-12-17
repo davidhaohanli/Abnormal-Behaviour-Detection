@@ -12,7 +12,7 @@ def poscalflow(img1,img3):
     kernel = np.ones((6,1),np.uint8)
     im = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)    # 开运算
     im = cv2.morphologyEx(im, cv2.MORPH_CLOSE, kernel)    # 闭运算
-    im_labels = measure.label(im,connectivity=2)       #从0开始连通域标记-8
+    im_labels = measure.label(im,connectivity=1,neighbors=8)       #从0开始连通域标记-8
 
     num = im_labels.max()     # 标记连通域的个数（除去背景连通域）
     if num==0:

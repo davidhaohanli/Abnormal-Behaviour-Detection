@@ -22,7 +22,7 @@ class Spliter(object):
             width=widths[ind]
 
             if area < self.floor:
-                print('discard')
+                #print('discard')
                 continue
             if area > self.ceil:
 
@@ -31,9 +31,9 @@ class Spliter(object):
                 ##################old######################
                 n = min(int(round(area[0] // Spliter.normal)),n_w*n_h);
 
-                print('n_h: ',n_h,'n_w: ',n_w,'n: ',n,'        -',n_h*n_w == n)
+                #print('n_h: ',n_h,'n_w: ',n_w,'n: ',n,'        -',n_h*n_w == n)
 
-                print('split',n)
+                #print('split',n)
                 recArea = (pos[ind][0]-pos[ind][1])*(pos[ind][2]-pos[ind][3])
                 shape = (pos[ind][0]-pos[ind][1])/(pos[ind][2]-pos[ind][3])
                 step_y = (pos[ind][0] - pos[ind][1]) / n_h;

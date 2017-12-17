@@ -9,6 +9,7 @@ from split import *
 from getFeatureUV import *
 from poscalNormal import *
 from Classifiers import *
+from Feature_extraction import *
 
 font = cv2.FONT_HERSHEY_COMPLEX
 data = scipy.io.loadmat('../ref_data/u_seq_abnormal.mat')
@@ -24,12 +25,12 @@ spliter = Spliter()
 list_names1 = ['../ref_data/fg_pics/' + str(i + 1) + '.bmp' for i in range(200)]
 list_names2 = ['../ref_data/original_pics/' + str(i + 1).zfill(3) + '.tif' for i in range(200)]
 list_names4 = ['../ref_data/ab_fg_pics/' + str(i + 1) + '.bmp' for i in range(200)]
-
+'''
 img3 = np.zeros((m, n, 2))
 datal = np.zeros((0, 2))
 datalAb = np.zeros((0, 2))
 
-for i in range(199):
+for i in range(98,125):
     print('img: ', i)
     img1 = cv2.imread(list_names1[i])
     img2 = cv2.imread(list_names2[i])
@@ -41,7 +42,7 @@ for i in range(199):
     imp1, im = poscalNormal(img1, img4)
     realPos = spliter.split(imp1, im, weight)
     #####################################################################################################
-
+    
     # plot in original pictures
     for i, item in enumerate(realPos):
         cv2.rectangle(img2, (int(item[3]), int(item[1])), (int(item[2]), int(item[0])), (0, 0, 255))
@@ -49,12 +50,10 @@ for i in range(199):
     cv2.imshow('img', img2)
     if cv2.waitKey(0) & 0xff == 27:
         cv2.destroyAllWindows()
-
+    
     ########################################################################################################
     imp2, _ = poscal(img4)
-    f1 = realPos.shape[0]
-    data = np.zeros((f1, 2))
-    f2 = imp2.shape[0]
+    data = np.zeros((realPos.shape[0], 2))
 
     if imp2.max() == 0:
         data, im_s = poscalflow(img1, img3)
@@ -70,4 +69,9 @@ train_data = np.nan_to_num(train_data)
 
 train_label = np.concatenate((np.zeros(datal.shape[0]), np.ones(datalAb.shape[0])), axis=0)
 
-# classifiers = Classifiers(train_data,train_label)
+classifiers = Classifiers(train_data,train_label)
+'''
+extractor = Feature_extractor(list_names2,list_names1,list_names4,u_seq_abnormal,v_seq_abnormal,weight)
+features, labels = extractor.get_features_and_labels(95, 101)
+print(features.shape)
+print(labels.shape)

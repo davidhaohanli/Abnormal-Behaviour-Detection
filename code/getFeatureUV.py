@@ -14,8 +14,11 @@ v_seq_abnormal = data['v_seq_abnormal']
 
 def getFeaturesUV(realPos,u,v):
     n = realPos.shape[0]
-    data = np.zeros((n,2))
-    for i in range(n):
-        data[i][0]=u[int(realPos[i][1]):int(realPos[i][0]),int(realPos[i][3]):int(realPos[i][2])].mean()
-        data[i][1]=v[int(realPos[i][1]):int(realPos[i][0]),int(realPos[i][3]):int(realPos[i][2])].mean()
+    if realPos.max()==0:
+        data = np.zeros((1,2))
+    else:
+        data = np.zeros((n,2))
+        for i in range(n):
+            data[i][0]=u[int(realPos[i][1]):int(realPos[i][0]),int(realPos[i][3]):int(realPos[i][2])].mean()
+            data[i][1]=v[int(realPos[i][1]):int(realPos[i][0]),int(realPos[i][3]):int(realPos[i][2])].mean()
     return data

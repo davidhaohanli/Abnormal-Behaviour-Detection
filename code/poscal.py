@@ -8,8 +8,6 @@ font=cv2.FONT_HERSHEY_COMPLEX
 
 def poscal(img):
     img = img[:,:,0]
-
-    m,n = img.shape
     kernel = np.ones((6,1),np.uint8)
     im = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)    # 开运算
     im = cv2.morphologyEx(im, cv2.MORPH_CLOSE, kernel)    # 闭运算
@@ -36,7 +34,7 @@ def main():
     img = cv2.imread('../ref_data/fg_pics/167.bmp')
     im_s,_ = poscal(img)
     #np.savetxt('../ref_data/connectedFieldImg.txt',im_s,delimiter=',')
-    print(im_s)
+    #print(im_s)
     #plot
     # img = cv2.imread('../ref_data/original_pics/167.tif')
     for i,item in enumerate(im_s):
