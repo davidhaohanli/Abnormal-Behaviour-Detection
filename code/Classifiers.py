@@ -1,11 +1,11 @@
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression as lr
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import BernoulliNB
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import RandomizedSearchCV
+#TODO PENDING CANDIDATES
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import BernoulliNB
 import numpy as np
 
 class Classifiers(object):
@@ -18,7 +18,8 @@ class Classifiers(object):
     def construct_all_models(self,hyperTune):
         self.models={'SVM':[SVC(kernel='linear'),dict(C=np.arange(0.01, 2.01, 0.2))],\
                      'LinearRegression':[lr(),dict(C=np.arange(0.1,3,0.1))],\
-                     'KNN':[KNeighborsClassifier(),dict(n_neighbors=range(1, 100))],}
+                     'KNN':[KNeighborsClassifier(),dict(n_neighbors=range(1, 100))],\
+                     'MultinomialNB':[MultinomialNB,dict(alpha=np.geomspace(1e-3, 1, 50))]}
         for name,candidate_hyperParam in self.models.items():
             self.models[name] = self.train_with_hyperParamTuning(candidate_hyperParam[0],name,candidate_hyperParam[1])
 
@@ -35,4 +36,5 @@ class Classifiers(object):
         return model
 
     def predict(self,test_data,test_labels):
+        pass
         #TODO PREDICT

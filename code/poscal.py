@@ -3,6 +3,9 @@ import cv2
 import numpy as np
 from skimage import measure
 import matplotlib.pyplot as plt
+from split import *
+from weight_matrix import *
+
 
 font=cv2.FONT_HERSHEY_COMPLEX
 
@@ -13,7 +16,7 @@ def poscal(img):
     kernel = np.ones((6,1),np.uint8)
     im = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)    # 开运算
     im = cv2.morphologyEx(im, cv2.MORPH_CLOSE, kernel)    # 闭运算
-    im_labels = measure.label(im,connectivity=2)       #从0开始连通域标记-8
+    im_labels = measure.label(im,neighbors=8,connectivity=1)       #从0开始连通域标记-8
 
     num = im_labels.max()     # 标记连通域的个数（除去背景连通域）
 
@@ -30,19 +33,23 @@ def poscal(img):
             im_s[i,2]= max(index[1]) #person's right side x_val
             im_s[i,3]= min(index[1]) #person's left side x_val
             im_s[i,4]= len(index[0]) #area of the person
-    return im_s
+    return im_s,im
 
 def main():
-    img = cv2.imread('../ref_data/fg_pics/97.bmp')
-    im_s = poscal(img)
+    img = cv2.imread('../ref_data/fg_pics/1.bmp')
+    im_s,im = poscal(img)
+    weight = Weight_matrix().get_weight_matrix()
+    im_s = Spliter().split(im_s,im,weight)
     #np.savetxt('../ref_data/connectedFieldImg.txt',im_s,delimiter=',')
     print(im_s)
     #plot
-    img = cv2.imread('../ref_data/original_pics/097.tif')
+    originalimg = cv2.imread('../ref_data/original_pics/001.tif')
     for i,item in enumerate(im_s):
-        cv2.rectangle(img,(int(item[3]),int(item[1])),(int(item[2]),int(item[0])),(0, 0, 255))
-        cv2.putText(img, str(i), (int(item[3]),int(item[1])-5), font, 0.4, (255, 255, 0), 1)
-    cv2.imshow('img',img)
+        cv2.rectangle(originalimg,(int(item[3]),int(item[1])),(int(item[2]),int(item[0])),(0, 0, 255))
+        cv2.putText(originalimg, str(i), (int(item[3]),int(item[1])-5), font, 0.4, (255, 255, 0), 1)
+    cv2.imshow('originalimg',originalimg)
+    cv2.imshow('img', img)
+    cv2.imshow('afterProcessing: ',im)
     if cv2.waitKey(0) & 0xff == 27:
         cv2.destroyAllWindows();
 

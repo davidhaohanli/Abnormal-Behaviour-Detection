@@ -27,7 +27,7 @@ list_names4 = ['../ref_data/ab_fg_pics/' + str(i+1) + '.bmp' for i in range(200)
 img3 = np.zeros((m,n,2))
 label = np.ones((1,0))
 datal = np.zeros((0,2))
-for i in range(108,110):
+for i in range(169,200):
     img1 = cv2.imread(list_names1[i])
     img2 = cv2.imread(list_names2[i])
     img4 = cv2.imread(list_names4[i])
