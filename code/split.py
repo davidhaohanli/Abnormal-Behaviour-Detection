@@ -4,11 +4,11 @@ class Spliter(object):
 
     #TODO SET NORM
     normal = 120
-    shapeParam = 3
+    shapeParam = 2.3
 
 
     #TODO Default tuning
-    def __init__(self,discardFloor=0.08,splitCeil=1.8,splitRemainderFloor=0.8,totalFullFillGate=0.6,shapeParamCeiling=1.5,\
+    def __init__(self,discardFloor=0.08,splitCeil=1.8,splitRemainderFloor=0.8,totalFullFillGate=0.8,shapeParamCeiling=1.25,\
                  shapeParamFloor=0.7):
         self.floor=discardFloor*Spliter.normal;
         self.ceil=splitCeil*Spliter.normal;
@@ -22,13 +22,13 @@ class Spliter(object):
         realPos = np.zeros((0,5))
         for ind,area in enumerate(posArea):
             if area < self.floor:
-                print('discard')
+                #print('discard')
                 continue
             if area > self.ceil:
                 n = int(area // Spliter.normal)
                 if area % Spliter.normal > self.remainderFloor:
                     n=n+1
-                print('split',n)
+                #print('split',n)
                 recArea = (pos[ind][0]-pos[ind][1])*(pos[ind][2]-pos[ind][3])
                 shape = (pos[ind][0]-pos[ind][1])/(pos[ind][2]-pos[ind][3])
                 step_y = (pos[ind][0] - pos[ind][1]) / n;
@@ -46,7 +46,7 @@ class Spliter(object):
                     res.sort(key=lambda x:x[-1])
                     res=res[::-1]
                     for i in range(n):
-                        print('diag chosen')
+                        #print('diag chosen')
                         new = np.array(res[i][:-1])
                         realPos = np.concatenate((realPos, new.reshape(1, 5)), axis=0)
                 elif shape > self.shapeCeil:
@@ -56,7 +56,7 @@ class Spliter(object):
                     for i in range(n):
                         pos1 = int(pos[ind][1] + i * step_y);
                         pos0 = int(pos[ind][1] + (i + 1) * step_y);
-                        print('y fullfilling')
+                        #print('y fullfilling')
                         new = np.array([pos0, pos1, pos2, pos3, fg_img[pos0:pos1, pos3:pos2].sum()])
                         realPos = np.concatenate((realPos, new.reshape(1,5)), axis=0)
                 elif shape<self.shapeFloor:
@@ -66,11 +66,13 @@ class Spliter(object):
                     for j in range(n):
                         pos3 = int(pos[ind][3] + j * step_x);
                         pos2 = int(pos[ind][3] + (j + 1) * step_x);
-                        print('x fullfilling')
+                        #print('x fullfilling')
                         new = np.array([pos0, pos1, pos2, pos3, fg_img[pos0:pos1, pos3:pos2].sum()])
                         realPos = np.concatenate((realPos, new.reshape(1,5)), axis=0)
                 else:
-                    print ('reasonable shape, but fulfillment is high')
+                    #print ('reasonable shape, but fulfillment is high')
+                    #print('shape: ',shape)
+                    pass
             else:
                 realPos=np.concatenate((realPos,pos[ind].reshape(1,5)),axis=0)
         return realPos
