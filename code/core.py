@@ -46,7 +46,7 @@ def main ():
     weight = Weight_matrix().get_weight_matrix()
 
     thisFeatureExtractor = Feature_extractor(original_imgs,fg_imgs,abnormal_fg_imgs,u_data,v_data,weight)
-<<<<<<< HEAD
+
     #TODO PARAM SELECTION
     train_data,train_labels = thisFeatureExtractor.get_features_and_labels(100,110)
     uvPlot(train_data[:,0],train_data[:,1],train_labels)

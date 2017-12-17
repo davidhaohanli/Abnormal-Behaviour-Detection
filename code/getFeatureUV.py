@@ -26,7 +26,11 @@ def getFeaturesUV(realPos,u,v):
 
 def main():
     weight = Weight_matrix().get_weight_matrix()
-    cv2.imshow('img105',u_seq_abnormal[:,:,105]*weight)
+    cv2.imshow('u_img105_after_weightMat',u_seq_abnormal[:,:,150]*weight.reshape(-1,1))
+    cv2.imshow('u_img105_original', u_seq_abnormal[:, :, 150])
+    cv2.imshow('original',cv2.imread('../ref_data/original_pics/150.tif'))
+    if cv2.waitKey(0) & 0xff == 27:
+        cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     main()
