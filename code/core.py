@@ -69,10 +69,10 @@ def main ():
 
             #TODO delete
             labels=classifiers.models[name].predict(features)
-            uvPlot(features[:,0],features[:,1],labels)
+            #uvPlot(features[:,0],features[:,1],labels)
             print('ind: ',ind,'abnormal?: ',labels.max())
-            #TODO
-            #plot(pos,labels,thisImg)
+
+            plot(pos,labels,thisImg)
         #print (labelsum)
 
         classifiers.prediction_metrics(test_data,test_labels,name)
