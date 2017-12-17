@@ -41,7 +41,7 @@ for i in range(199):
     imp1, im = poscalNormal(img1, img4)
     realPos = spliter.split(imp1, im, weight)
     #####################################################################################################
-    '''
+
     # plot in original pictures
     for i, item in enumerate(realPos):
         cv2.rectangle(img2, (int(item[3]), int(item[1])), (int(item[2]), int(item[0])), (0, 0, 255))
@@ -49,7 +49,7 @@ for i in range(199):
     cv2.imshow('img', img2)
     if cv2.waitKey(0) & 0xff == 27:
         cv2.destroyAllWindows()
-    '''
+
     ########################################################################################################
     imp2, _ = poscal(img4)
     f1 = realPos.shape[0]

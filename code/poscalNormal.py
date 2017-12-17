@@ -13,7 +13,7 @@ def poscalNormal(img1,img4):
     m,n = img1.shape
     kernel = np.ones((6,1),np.uint8)
     #############################################################################
-    img1[img4 != 0] = 0
+    #img1[img4 != 0] = 0
     #############################################################################
     im = cv2.morphologyEx(img1, cv2.MORPH_CLOSE, kernel)    # 开运算
     im = cv2.morphologyEx(im, cv2.MORPH_OPEN, kernel)    # 闭运算
