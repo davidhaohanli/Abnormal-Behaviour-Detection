@@ -11,6 +11,7 @@ data = scipy.io.loadmat('../ref_data/u_seq_abnormal.mat')
 u_seq_abnormal = data['u_seq_abnormal']
 data = scipy.io.loadmat('../ref_data/v_seq_abnormal.mat')
 v_seq_abnormal = data['v_seq_abnormal']
+weight = Weight_matrix().get_weight_matrix()
 
 def getFeaturesUV(realPos,u,v):
     n = realPos.shape[0]
