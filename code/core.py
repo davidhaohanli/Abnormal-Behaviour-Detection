@@ -46,6 +46,7 @@ def main ():
     weight = Weight_matrix().get_weight_matrix()
 
     thisFeatureExtractor = Feature_extractor(original_imgs,fg_imgs,abnormal_fg_imgs,u_data,v_data,weight)
+<<<<<<< HEAD
     #TODO PARAM SELECTION
     train_data,train_labels = thisFeatureExtractor.get_features_and_labels(100,110)
     uvPlot(train_data[:,0],train_data[:,1],train_labels)
@@ -65,6 +66,7 @@ def main ():
             features,_=thisFeatureExtractor.get_features_and_labels(ind,ind+1,False)
             #print(features.shape)
             #print(features)
+
             #TODO delete
             labels=classifiers.models[name].predict(features)
             uvPlot(features[:,0],features[:,1],labels)
@@ -72,6 +74,7 @@ def main ():
             #TODO
             #plot(pos,labels,thisImg)
         #print (labelsum)
+
         classifiers.prediction_metrics(test_data,test_labels,name)
 
 

@@ -48,7 +48,9 @@ class Feature_extractor(object):
 
     def simgle_feature(self,pics,index,style=True,mode=True):
         realPos,_,label = self.getPosition(pics,index,style,mode)
-        feature = getFeaturesUV(realPos,self.U[:,:,index],self.V[:,:,index])
+
+        feature = getFeaturesUV(realPos,self.U[:,:,index]* np.sqrt(self.weigh).reshape((self.m, 1)),self.V[:,:,index]* np.sqrt(self.weigh).reshape((self.m, 1)))
+
         return feature,label
 
     def get_features_and_labels(self, start, end, mode=True):

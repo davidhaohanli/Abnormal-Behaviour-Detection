@@ -72,6 +72,8 @@ train_label = np.concatenate((np.zeros(datal.shape[0]), np.ones(datalAb.shape[0]
 classifiers = Classifiers(train_data,train_label)
 '''
 extractor = Feature_extractor(list_names2,list_names1,list_names4,u_seq_abnormal,v_seq_abnormal,weight)
-features, labels = extractor.get_features_and_labels(95, 101)
-print(features.shape)
-print(labels.shape)
+
+features, labels = extractor.get_features_and_labels(102, 103)
+print(features)
+print(labels)
+
