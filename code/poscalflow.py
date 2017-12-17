@@ -12,15 +12,15 @@ def poscalflow(img1,img3):
     kernel = np.ones((6,1),np.uint8)
     im = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)    # 开运算
     im = cv2.morphologyEx(im, cv2.MORPH_CLOSE, kernel)    # 闭运算
-    im_labels = measure.label(im,connectivity=2)       #从0开始连通域标记-8
+    im_labels = measure.label(im,connectivity=1,neighbors=8)       #从0开始连通域标记-8
 
     num = im_labels.max()     # 标记连通域的个数（除去背景连通域）
     if num==0:
-        data = np.zeros(2)
+        data = np.zeros((0,2))
         im_s = np.zeros((1,5))   # 考虑一张全黑图的情况 如果不考虑 可以略过
     else:
         im_s = np.zeros((num,5))
-        data = np.zeros((2,num))
+        data = np.zeros((num,2))
         for i in range(1,num+1):
             temp = np.copy(im_labels)
             temp[temp != (i)]=0
@@ -31,7 +31,7 @@ def poscalflow(img1,img3):
                 aa = iml[temp == i]
                 a = np.mean(aa)
                 data1[j]= a
-            data[:,i-1] = data1
+            data[i-1,:] = data1
             im_s[i-1, 0] = max(index[0])
             im_s[i-1, 1] = min(index[0])
             im_s[i-1, 2] = max(index[1])
@@ -49,7 +49,7 @@ def main():
     img3 = np.zeros((m, n, 2))
     img3[:, :, 0] = u_seq_abnormal[:, :, 0]
     img3[:, :, 1] = v_seq_abnormal[:, :, 0]
-    img1 = cv2.imread('../ref_data/fg_pics/100.bmp')
+    img1 = cv2.imread('../ref_data/fg_pics/10.bmp')
     data, im_s = poscalflow(img1,img3)
     print(data)
     print(im_s)

@@ -22,7 +22,7 @@ class Spliter(object):
             width=widths[ind]
 
             if area < self.floor:
-                print('discard')
+                #print('discard')
                 continue
             if area > self.ceil:
 
@@ -31,9 +31,9 @@ class Spliter(object):
                 ##################old######################
                 n = min(int(round(area[0] // Spliter.normal)),n_w*n_h);
 
-                print('n_h: ',n_h,'n_w: ',n_w,'n: ',n,'        -',n_h*n_w == n)
+                #print('n_h: ',n_h,'n_w: ',n_w,'n: ',n,'        -',n_h*n_w == n)
 
-                print('split',n)
+                #print('split',n)
                 recArea = (pos[ind][0]-pos[ind][1])*(pos[ind][2]-pos[ind][3])
                 shape = (pos[ind][0]-pos[ind][1])/(pos[ind][2]-pos[ind][3])
                 step_y = (pos[ind][0] - pos[ind][1]) / n_h;
@@ -54,46 +54,6 @@ class Spliter(object):
                 for i in range(n):
                     new = np.array(res[i][:-1])
                     realPos = np.concatenate((realPos, new.reshape(1, 5)), axis=0)
-                '''
-                if pos[ind][-1]/recArea < self.totalGate:
-                    res=[]
-                    #diganol splitting
-                    for i in range(n):
-                        pos1 = int(pos[ind][1] + i * step_y);
-                        pos0 = int(pos[ind][1] + (i + 1) * step_y);
-                        for j in range(n):
-                            pos3 = int(pos[ind][3] + j * step_x);
-                            pos2 = int(pos[ind][3] + (j + 1) * step_x);
-                            res.append([pos0,pos1,pos2,pos3,fg_img[pos1:pos0,pos3:pos2].sum(),fg_img[pos1:pos0,pos3:pos2].mean()])
-                    res.sort(key=lambda x:x[-1])
-                    res=res[::-1]
-                    for i in range(n):
-                        print('diag chosen')
-                        new = np.array(res[i][:-1])
-                        realPos = np.concatenate((realPos, new.reshape(1, 5)), axis=0)
-                elif shape > self.shapeCeil:
-                    #y splitting
-                    pos3=int(pos[ind][3])
-                    pos2=int(pos[ind][2])
-                    for i in range(n):
-                        pos1 = int(pos[ind][1] + i * step_y);
-                        pos0 = int(pos[ind][1] + (i + 1) * step_y);
-                        print('y fullfilling')
-                        new = np.array([pos0, pos1, pos2, pos3, fg_img[pos0:pos1, pos3:pos2].sum()])
-                        realPos = np.concatenate((realPos, new.reshape(1,5)), axis=0)
-                elif shape<self.shapeFloor:
-                    #x splitting
-                    pos1 = int(pos[ind][1])
-                    pos0 = int(pos[ind][0])
-                    for j in range(n):
-                        pos3 = int(pos[ind][3] + j * step_x);
-                        pos2 = int(pos[ind][3] + (j + 1) * step_x);
-                        print('x fullfilling')
-                        new = np.array([pos0, pos1, pos2, pos3, fg_img[pos0:pos1, pos3:pos2].sum()])
-                        realPos = np.concatenate((realPos, new.reshape(1,5)), axis=0)
-                else:
-                    print ('reasonable shape, but fulfillment is high')
-                '''
             else:
                 realPos=np.concatenate((realPos,pos[ind].reshape(1,5)),axis=0)
         return realPos
