@@ -8,4 +8,5 @@ Crowd Monitoring: Abnormal Behaviour Detection (FINISHED! WU YEEEEEE!)
 &emsp;&emsp;- Classification Model: SVM, LogisticRegression, KNN  
 <br>
 ---
-Please run ./code/Core.py for demo
+Please run ./code/Core.py for demo  
+Or check the ./results folder for video and images  
