@@ -30,15 +30,19 @@ def load_data():
     return u_seq_abnormal,v_seq_abnormal,fg_imgs,original_imgs,abnormal_fg_imgs
 
 def plot(realPos,labels,img,timerSet=True):
-    #TODO LABEL TRUE POS ONLY
+    target=[None,0]
     for i, item in enumerate(realPos):
         if labels[i]:
-            cv2.rectangle(img, (int(item[3]), int(item[1])), (int(item[2]), int(item[0])), (0, 0, 255))
-        # cv2.putText(img, str(i), (int(item[3]), int(item[1]) - 5), font, 0.4, (255, 255, 0), 1)
+            score= item[-1]/((item[0]-item[1])*(item[2]-item[3]))
+            if score >= target[-1]:
+                target=[item,score]
+    if target[-1]:
+        item=target[0]
+        cv2.rectangle(img, (int(item[3]), int(item[1])), (int(item[2]), int(item[0])), (0, 0, 255))
     cv2.imshow('img', img)
-    #TODO TIMERSET
-    if cv2.waitKey(0) & 0xff == 27:
-        cv2.destroyAllWindows()
+    if timerSet:
+        if cv2.waitKey(0) & 0xff == 27:
+            cv2.destroyAllWindows()
 
 def main ():
 
@@ -47,33 +51,25 @@ def main ():
 
     thisFeatureExtractor = Feature_extractor(original_imgs,fg_imgs,abnormal_fg_imgs,u_data,v_data,weight)
 
-    #TODO PARAM SELECTION
+    #TODO UVPLOT DEL OR NOT
     train_data,train_labels = thisFeatureExtractor.get_features_and_labels(100,110)
     uvPlot(train_data[:,0],train_data[:,1],train_labels)
 
 
     classifiers = Classifiers(train_data,train_labels)
 
-    #TODO PARAM SELECTION
-    test_data, test_labels = thisFeatureExtractor.get_features_and_labels(120,150)
+    test_data, test_labels = thisFeatureExtractor.get_features_and_labels(100,199)
 
     for name,model in classifiers.models.items():
-        for ind,original_img in enumerate(original_imgs[80:-1]):
-            #TODO -80
-            ind=ind+80
-            pos,thisImg,_=thisFeatureExtractor.getPosition(fg_imgs,ind)
-            #print(pos.shape)
-            features,_=thisFeatureExtractor.get_features_and_labels(ind,ind+1,False)
-            #print(features.shape)
-            #print(features)
+        for ind,original_img in enumerate(original_imgs[:-1]):
+            #TODO del the last morph
+            pos,thisImg,_,morph_fg=thisFeatureExtractor.getPosition(fg_imgs,ind)
 
-            #TODO delete
+            features,_=thisFeatureExtractor.get_features_and_labels(ind,ind+1,False)
+
             labels=classifiers.models[name].predict(features)
-            #uvPlot(features[:,0],features[:,1],labels)
-            print('ind: ',ind,'abnormal?: ',labels.max())
 
             plot(pos,labels,thisImg)
-        #print (labelsum)
 
         classifiers.prediction_metrics(test_data,test_labels,name)
 

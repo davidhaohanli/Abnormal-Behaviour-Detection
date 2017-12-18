@@ -20,7 +20,7 @@ class Classifiers(object):
     def construct_all_models(self,hyperTune):
         if hyperTune:
             self.models={'SVM':[SVC(kernel='linear',probability=True),dict(C=np.arange(0.01, 2.01, 0.2))],\
-                         'LinearRegression':[lr(),dict(C=np.arange(0.1,3,0.1))],\
+                         'LogisticRegression':[lr(),dict(C=np.arange(0.1,3,0.1))],\
                          'KNN':[KNeighborsClassifier(),dict(n_neighbors=range(1, 100))],}
             for name,candidate_hyperParam in self.models.items():
                 self.models[name] = self.train_with_hyperParamTuning(candidate_hyperParam[0],name,candidate_hyperParam[1])

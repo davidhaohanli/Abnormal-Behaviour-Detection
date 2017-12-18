@@ -37,6 +37,7 @@ class Feature_extractor(object):
             else:
                 realPos,_ = poscal(img)
                 label = np.ones(realPos.shape[0])
+                mopho_img=None
         else:
             img = cv2.imread(self.forgpics[index])
             im_s,mopho_img = poscal(img)
@@ -44,10 +45,10 @@ class Feature_extractor(object):
             realPos,label = labeling(splitPos,cv2.imread(self.ab_forgpics[index]))
 
         Img = cv2.imread(self.originpics[index])
-        return realPos,Img,label
+        return realPos,Img,label,mopho_img
 
     def simgle_feature(self,pics,index,style=True,mode=True):
-        realPos,_,label = self.getPosition(pics,index,style,mode)
+        realPos,_,label,_ = self.getPosition(pics,index,style,mode)
 
         feature = getFeaturesUV(realPos,self.U[:,:,index]* np.sqrt(self.weigh).reshape((self.m, 1)),self.V[:,:,index]* np.sqrt(self.weigh).reshape((self.m, 1)))
 
