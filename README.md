@@ -9,4 +9,4 @@ Crowd Monitoring: Abnormal Behaviour Detection (FINISHED! WU YEEEEEE!)
 <br>
 ---
 Please run ./code/Core.py for demo  
-Or check the ./results folder for video and images  
+or check the ./results folder for videos and images
