@@ -61,7 +61,7 @@ def main ():
 
     thisFeatureExtractor = Feature_extractor(original_imgs,fg_imgs,abnormal_fg_imgs,u_data,v_data,weight)
 
-    train_data,train_labels = thisFeatureExtractor.get_features_and_labels(100,110)
+    train_data,train_labels = thisFeatureExtractor.get_features_and_labels(80,140)
 
     ########################## To see the features distribution, uncomment next line##################################
     #uvPlot(train_data[:,0],train_data[:,1],train_labels,False)
@@ -69,7 +69,7 @@ def main ():
 
     classifiers = Classifiers(train_data,train_labels)
 
-    test_data, test_labels = thisFeatureExtractor.get_features_and_labels(110,150)
+    test_data, test_labels = thisFeatureExtractor.get_features_and_labels(140,199)
 
     for name,model in classifiers.models.items():
         for ind,original_img in enumerate(original_imgs[:-1]):
