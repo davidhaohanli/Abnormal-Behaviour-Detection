@@ -9,7 +9,7 @@ import scipy.io
 import cv2
 import matplotlib.pyplot as plt
 
-def uvPlot(u,v,labels,timerSet=True):
+def uvPlot(u,v,labels,timerSet=False):
     fig=plt.figure()
     for ind,label in enumerate(labels):
         if label:
