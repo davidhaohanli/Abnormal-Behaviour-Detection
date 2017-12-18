@@ -24,7 +24,7 @@ def getFeaturesUV(realPos,u,v):
             data[i][1]=v[int(realPos[i][1]):int(realPos[i][0]),int(realPos[i][3]):int(realPos[i][2])].mean()
     return data
 
-def main():
+def main_test():
     weight = Weight_matrix().get_weight_matrix()
     ab_img=cv2.imread('../ref_data/ab_fg_pics/150.bmp')
     ab_img = cv2.cvtColor(ab_img, cv2.COLOR_BGR2GRAY)
@@ -41,4 +41,4 @@ def main():
         cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    main()
+    main_test()
