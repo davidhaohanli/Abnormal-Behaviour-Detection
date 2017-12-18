@@ -33,8 +33,17 @@ def make_video(images, outvid=None, fps=5, size=None,
     vid.release()
     return vid
 
+def main1():
+    images = []
+    for i in range(1, 201):
+        images.append('../../ref_data/original_pics/' + str(i).zfill(3) + '.tif')
+    make_video(images, '../../video.mp4', 10)
+
+def main2():
+    images = []
+    for i in range(0, 199):
+        images.append('../../results/images/LogisticRegression/' + str(i).zfill(3) + '.tif')
+    make_video(images, '../../results/videos/LogisticRegression_video.mp4', 10)
+
 if __name__ == '__main__':
-    images=[]
-    for i in range(1,201):
-        images.append('../original_pics/'+str(i).zfill(3)+'.tif')
-    make_video(images,'../video/video.mp4',10)
+    main2()
