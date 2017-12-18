@@ -69,7 +69,7 @@ def main ():
 
     classifiers = Classifiers(train_data,train_labels)
 
-    test_data, test_labels = thisFeatureExtractor.get_features_and_labels(100,150)
+    test_data, test_labels = thisFeatureExtractor.get_features_and_labels(110,150)
 
     for name,model in classifiers.models.items():
         for ind,original_img in enumerate(original_imgs[:-1]):
