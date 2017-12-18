@@ -2,13 +2,10 @@ import numpy as np
 
 class Spliter(object):
 
-    #TODO SET NORM
     normal = 120
     heightNorm = 20#'CHANGE TO INT'
     widthNorm = 6#'heightNorm / shapeParam'
 
-
-    #TODO Default tuning
     def __init__(self,discardFloor=0.08,splitCeil=1.8):
         self.floor=discardFloor*Spliter.normal;
         self.ceil=splitCeil*Spliter.normal;

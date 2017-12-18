@@ -1,7 +1,5 @@
 import cv2
 from poscal import poscal
-from poscalflow import poscalflow
-import scipy.io
 import numpy as np
 from weight_matrix import *
 from split import *

@@ -41,13 +41,17 @@ class Classifiers(object):
     def prediction_metrics(self,test_data,test_labels,name):
         print('{} test accuracy = {}\n'.format(name,(self.models[name].predict(test_data) == test_labels).mean()))
         prob = self.models[name].predict_proba(test_data)
-        print('{} AUC of ROC is {}\n'.format(name,roc_auc_score(test_labels.reshape(-1),prob[:,1])))
+        auc=roc_auc_score(test_labels.reshape(-1),prob[:,1])
+        print('Classifier {} area under curve of ROC is {}\n'.format(name,auc))
         fpr, tpr, thresholds = roc_curve(test_labels.reshape(-1), prob[:,1], pos_label=1)
+        self.roc_plot(fpr,tpr,name,auc)
+
+    def roc_plot(self,fpr,tpr,name,auc):
         plt.figure(figsize=(20,5))
         plt.plot(fpr,tpr)
         plt.ylim([0.0,1.0])
         plt.ylim([0.0, 1.0])
-        plt.title('ROC of {}'.format(name))
+        plt.title('ROC of {}     AUC: {}\nPlease close it to continue'.format(name,auc))
         plt.xlabel('False Positive Rate')
         plt.ylabel('True Positive Rate')
         plt.grid(True)

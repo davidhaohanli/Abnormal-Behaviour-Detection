@@ -1,3 +1,7 @@
+#Abnormal behavior detection project
+#main features: optical flow
+#classifiers: SVM, LinearRegression, KNN
+
 from weight_matrix import *
 from Feature_extraction import *
 from Classifiers import *
@@ -5,17 +9,20 @@ import scipy.io
 import cv2
 import matplotlib.pyplot as plt
 
-
-def uvPlot(u,v,labels):
-    plt.figure()
+def uvPlot(u,v,labels,timerSet=True):
+    fig=plt.figure()
     for ind,label in enumerate(labels):
         if label:
             plt.scatter(u[ind],v[ind],c='red')
         else:
             plt.scatter(u[ind], v[ind], c='blue')
+    if timerSet:
+        timer = fig.canvas.new_timer(interval=10000)  # creating a timer object and setting an interval of 3000 milliseconds
+        timer.add_callback(plt.close)
+        timer.start();
     plt.ylabel('v')
     plt.xlabel('u')
-    plt.title('u v plot')
+    plt.title('Optical Flow Features (U V) of training set \nPlease close it to continue')
     plt.legend()
     plt.show()
 
@@ -29,7 +36,7 @@ def load_data():
 
     return u_seq_abnormal,v_seq_abnormal,fg_imgs,original_imgs,abnormal_fg_imgs
 
-def plot(realPos,labels,img,timerSet=True):
+def plot(realPos,labels,img,classifier,timerSet=True):
     target=[None,0]
     for i, item in enumerate(realPos):
         if labels[i]:
@@ -39,8 +46,11 @@ def plot(realPos,labels,img,timerSet=True):
     if target[-1]:
         item=target[0]
         cv2.rectangle(img, (int(item[3]), int(item[1])), (int(item[2]), int(item[0])), (0, 0, 255))
-    cv2.imshow('img', img)
+    cv2.imshow('classifier: {}'.format(classifier), img)
     if timerSet:
+        if cv2.waitKey(100) & 0xff == 27:
+            cv2.destroyAllWindows()
+    else:
         if cv2.waitKey(0) & 0xff == 27:
             cv2.destroyAllWindows()
 
@@ -51,29 +61,36 @@ def main ():
 
     thisFeatureExtractor = Feature_extractor(original_imgs,fg_imgs,abnormal_fg_imgs,u_data,v_data,weight)
 
-    #TODO UVPLOT DEL OR NOT
     train_data,train_labels = thisFeatureExtractor.get_features_and_labels(100,110)
-    uvPlot(train_data[:,0],train_data[:,1],train_labels)
-
+    uvPlot(train_data[:,0],train_data[:,1],train_labels,False)
 
     classifiers = Classifiers(train_data,train_labels)
 
-    test_data, test_labels = thisFeatureExtractor.get_features_and_labels(100,199)
+    test_data, test_labels = thisFeatureExtractor.get_features_and_labels(100,150)
 
     for name,model in classifiers.models.items():
         for ind,original_img in enumerate(original_imgs[:-1]):
-            #TODO del the last morph
-            pos,thisImg,_,morph_fg=thisFeatureExtractor.getPosition(fg_imgs,ind)
+
+            pos,thisImg,_,_=thisFeatureExtractor.getPosition(fg_imgs,ind)
 
             features,_=thisFeatureExtractor.get_features_and_labels(ind,ind+1,False)
 
             labels=classifiers.models[name].predict(features)
 
-            plot(pos,labels,thisImg)
+            plot(pos,labels,thisImg,name)
 
         classifiers.prediction_metrics(test_data,test_labels,name)
 
-
-
 if __name__ == '__main__':
+    print (
+        '''
+
+        This version will continuously process 200 frames from a 20s video
+
+        3 classifiers: SVM, LinearRegression, and KNN trained with hyper-parameters tuning
+
+        Metrics: ROC curve, AUC of ROC, and prediction accuracy will be provided each classifier's process
+
+        '''
+    )
     main()
