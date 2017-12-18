@@ -62,7 +62,10 @@ def main ():
     thisFeatureExtractor = Feature_extractor(original_imgs,fg_imgs,abnormal_fg_imgs,u_data,v_data,weight)
 
     train_data,train_labels = thisFeatureExtractor.get_features_and_labels(100,110)
-    uvPlot(train_data[:,0],train_data[:,1],train_labels,False)
+
+    ########################## To see the features distribution, uncomment next line##################################
+    #uvPlot(train_data[:,0],train_data[:,1],train_labels,False)
+    ##################################################################################################################
 
     classifiers = Classifiers(train_data,train_labels)
 
