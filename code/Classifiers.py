@@ -16,14 +16,17 @@ class Classifiers(object):
 
     def construct_all_models(self,hyperTune):
         if hyperTune:
+            #3 models KNN SCM and LR
             self.models={'SVM':[SVC(kernel='linear',probability=True),dict(C=np.arange(0.01, 2.01, 0.2))],\
                          'LogisticRegression':[lr(),dict(C=np.arange(0.1,3,0.1))],\
                          'KNN':[KNeighborsClassifier(),dict(n_neighbors=range(1, 100))],}
             for name,candidate_hyperParam in self.models.items():
+                #update each classifier after training and tuning
                 self.models[name] = self.train_with_hyperParamTuning(candidate_hyperParam[0],name,candidate_hyperParam[1])
             print ('\nTraining process finished\n')
 
     def train_with_hyperParamTuning(self,model,name,param_grid):
+        #grid search method for hyper-parameter tuning
         grid = GridSearchCV(model, param_grid, cv=10, scoring='accuracy', n_jobs=-1)
         grid.fit(self.train_data, self.train_labels)
         print(
@@ -36,10 +39,16 @@ class Classifiers(object):
         return model
 
     def prediction_metrics(self,test_data,test_labels,name):
+
+        #accuracy
         print('{} test accuracy = {}\n'.format(name,(self.models[name].predict(test_data) == test_labels).mean()))
+
+        #AUC of ROC
         prob = self.models[name].predict_proba(test_data)
         auc=roc_auc_score(test_labels.reshape(-1),prob[:,1])
         print('Classifier {} area under curve of ROC is {}\n'.format(name,auc))
+
+        #ROC
         fpr, tpr, thresholds = roc_curve(test_labels.reshape(-1), prob[:,1], pos_label=1)
         self.roc_plot(fpr,tpr,name,auc)
 
