@@ -38,12 +38,20 @@ def load_data():
     return u_seq_abnormal,v_seq_abnormal,fg_imgs,original_imgs,abnormal_fg_imgs
 
 def plot(realPos,labels,img,classifier,timerSet=True):
-    target=[None,0]
+
+    target=[None,0]#dummy start
+
     for i, item in enumerate(realPos):
         if labels[i]:#consider only abnormal people (label 1)
+            if item[0] == item[1]:
+                item[0]+=1;
+            if item[2] == item[3]:
+                item[2]+=1;
             score= item[-1]/((item[0]-item[1])*(item[2]-item[3]))
-            if score >= target[-1]:#the largest position
+
+            if score >= target[-1]:#the largest fulfillment position
                 target=[item,score]
+
     if target[-1]:#if no abnormal person detected, tag nothing
         item=target[0]
         cv2.rectangle(img, (int(item[3]), int(item[1])), (int(item[2]), int(item[0])), (0, 0, 255))
