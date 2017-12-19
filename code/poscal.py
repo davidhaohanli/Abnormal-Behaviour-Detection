@@ -2,7 +2,8 @@
 import cv2
 import numpy as np
 from skimage import measure
-
+from weight_matrix import *
+from split import *
 font=cv2.FONT_HERSHEY_COMPLEX
 
 def poscal(img):
@@ -30,8 +31,27 @@ def poscal(img):
     return im_s,im
 
 def main_test():
-    fg_img = cv2.imread('../ref_data/fg_pics/1.bmp')
+    import scipy.io
+    font = cv2.FONT_HERSHEY_COMPLEX
+    data = scipy.io.loadmat('../ref_data/u_seq_abnormal.mat')
+    u_seq_abnormal = data['u_seq_abnormal']
+    data = scipy.io.loadmat('../ref_data/v_seq_abnormal.mat')
+    v_seq_abnormal = data['v_seq_abnormal']
+    weight = Weight_matrix().get_weight_matrix()
+    thisSplitter = Spliter()
+
+    fg_img = cv2.imread('../ref_data/fg_pics/108.bmp')
     im_s,im = poscal(fg_img)
+    realPos=thisSplitter.split(im_s,im,weight)
+
+    ab_img = cv2.imread('../ref_data/ab_fg_pics/108.bmp')
+
+    for i,item in enumerate(realPos):
+        cv2.rectangle(ab_img,(int(item[3]),int(item[1])),(int(item[2]),int(item[0])),(0, 0, 255))
+        #cv2.putText(img, str(i), (int(item[3]),int(item[1])-5), font, 0.4, (255, 255, 0), 1)
+    cv2.imshow('abnormal_with_posTag',ab_img)
+
+
     #np.savetxt('../ref_data/connectedFieldImg.txt',im_s,delimiter=',')
     #print(im_s)
     #plot
