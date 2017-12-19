@@ -1,6 +1,6 @@
 import numpy as np
 
-gate=0.5
+gate=0.8
 
 def labeling(pos,abnormal_fg_img):
     if abnormal_fg_img is None:

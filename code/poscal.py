@@ -30,15 +30,17 @@ def poscal(img):
     return im_s,im
 
 def main_test():
-    img = cv2.imread('../ref_data/fg_pics/167.bmp')
-    im_s,_ = poscal(img)
+    fg_img = cv2.imread('../ref_data/fg_pics/1.bmp')
+    im_s,im = poscal(fg_img)
     #np.savetxt('../ref_data/connectedFieldImg.txt',im_s,delimiter=',')
     #print(im_s)
     #plot
-    # img = cv2.imread('../ref_data/original_pics/167.tif')
+    img = cv2.imread('../ref_data/original_pics/001.tif')
     for i,item in enumerate(im_s):
         cv2.rectangle(img,(int(item[3]),int(item[1])),(int(item[2]),int(item[0])),(0, 0, 255))
-        cv2.putText(img, str(i), (int(item[3]),int(item[1])-5), font, 0.4, (255, 255, 0), 1)
+        #cv2.putText(img, str(i), (int(item[3]),int(item[1])-5), font, 0.4, (255, 255, 0), 1)
+    cv2.imshow('img',fg_img)
+    cv2.imshow('im', im)
     cv2.imshow('img',img)
     if cv2.waitKey(0) & 0xff == 27:
         cv2.destroyAllWindows();

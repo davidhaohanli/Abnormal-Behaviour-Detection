@@ -23,10 +23,10 @@ class Spliter(object):
                 continue
             if area > self.ceil:
 
-                n_h=int(round(height[0]//Spliter.heightNorm));
-                n_w=int(round(width[0]//Spliter.widthNorm));
+                n_h=int(round(height[0]/Spliter.heightNorm));
+                n_w=int(round(width[0]/Spliter.widthNorm));
                 ##################old######################
-                n = min(int(round(area[0] // Spliter.normal)),n_w*n_h);
+                n = min(int(round(area[0] /Spliter.normal)),n_w*n_h);
 
                 #print('n_h: ',n_h,'n_w: ',n_w,'n: ',n,'        -',n_h*n_w == n)
 

@@ -23,7 +23,7 @@ class Classifiers(object):
             for name,candidate_hyperParam in self.models.items():
                 #update each classifier after training and tuning
                 self.models[name] = self.train_with_hyperParamTuning(candidate_hyperParam[0],name,candidate_hyperParam[1])
-            print ('\nTraining process finished\n')
+            print ('\nTraining process finished\n\n\n')
 
     def train_with_hyperParamTuning(self,model,name,param_grid):
         #grid search method for hyper-parameter tuning
