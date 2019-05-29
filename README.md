@@ -1,4 +1,4 @@
-csc411proj
+Overview
 ===  
 Crowd Monitoring: Abnormal Behaviour Detection (FINISHED! Hooray!)  
 &emsp;This project applied computer vision and pattern recognition methods aimed to detect abnormal behaved object in crowd, such as biker (fast motion) in a crowd of walking (slow motion) people.  
